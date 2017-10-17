@@ -7,3 +7,17 @@
 
 // Bootstrap
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+
+.input-group-lg > .form-control, .input-group-lg > .input-group-addon, .input-group-lg > .input-group-btn > .btn, .input-lg{
+  height: 35px!important;
+  padding: 0 15px;
+  font-size: 16px;
+}
+.btn-group-lg > .btn, .btn-lg {
+  padding: 5px 16px;
+  line-height: 23px;
+}
+.input-group .form-control{
+  width: auto;
+}

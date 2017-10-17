@@ -11,9 +11,9 @@
                         </div>
                         <div class="input-group col-md-8">
                             <form action="/search" method="post">
-                            {{ csrf_field() }}
+                                {{ csrf_field() }}
                                 
-                                    <input type="text" class="form-control input-lg" placeholder="Поиск" name="search" />
+                                <input type="text" class="form-control input-lg" placeholder="Поиск" name="search" />
                                 <span class="input-group-btn">
                                     <button class="btn btn-info btn-lg" type="submit">
                                         <i class="glyphicon glyphicon-search"></i>
