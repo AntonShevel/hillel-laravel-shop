@@ -12,6 +12,11 @@
                             <li>visible {{ $product->visible }}</li>
                             <li>price {{ $product->price }}</li>
                             <li>url {{ $product->url }}</li>
+                            <li>
+                                @foreach ($images as $image)
+                                    <img src="{{ asset('img/' . $image -> filename) }}" width="200">
+                                @endforeach
+                            </li>
                         </ul>
                         <p>
                             {{ $product->description }}

@@ -23,10 +23,10 @@ Route::get('products', 'ProductsController@index')->name('products');
 
 Route::get('products/{url}', 'ProductsController@show')->name('product');
 
+Route::get('search', 'ProductsController@searchResult');
+
 Route::get('{url}', 'CategoriesController@show')->name('category');
 
-
-Route::post('search', 'ProductsController@searchResult');
 
 
 // Route::get('search/{url}', 'ProductsController@searchResult')->name('str');

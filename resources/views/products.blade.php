@@ -10,7 +10,7 @@
                             Товары
                         </div>
                         <div class="input-group col-md-8">
-                            <form action="/search" method="post">
+                            <form action="/search">
                             {{ csrf_field() }}
                                 
                                 <input type="text" class="form-control input-lg" placeholder="Поиск" name="search" />
@@ -30,6 +30,9 @@
                         @endforeach
                         <hr>
                         @foreach ($products as $product)
+                            {{-- <div>
+                                <img src="{{route }}">
+                            </div> --}}
                             <div>
                                 <a href="{{route('product', ['url' => $product->url])}}">{{$product->name}}</a>
                             </div>

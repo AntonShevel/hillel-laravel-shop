@@ -29,15 +29,25 @@ class ProductsController extends Controller
     {
         $product = Product::where('url', '=', $url)->first();
 
-        return view('product', ['product' => $product]);
+        $images = $product->images()->get();
+
+        dump($images);
+
+        return view('product', [
+            'product' => $product,
+            'images' => $images
+        ]);
     }
 
 
     public function searchResult(Request $request)
     {
-       
         $search = Product::where('name', 'LIKE', '%'.  $request->input('search') .'%')->paginate(5);
+        $categories = Category::all();
 
-        return view('search', ['products' => $search]);
+        return view('products', [
+                'products' => $search,
+                'categories' => $categories
+        ]);
     }
 }
