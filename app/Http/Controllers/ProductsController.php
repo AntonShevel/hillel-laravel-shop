@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use App\Category;
+use Illuminate\Http\Request;
 
 class ProductsController extends Controller
 {
@@ -29,5 +30,14 @@ class ProductsController extends Controller
         $product = Product::where('url', '=', $url)->first();
 
         return view('product', ['product' => $product]);
+    }
+
+
+    public function searchResult(Request $request)
+    {
+       
+        $search = Product::where('name', 'LIKE', '%'.  $request->input('search') .'%')->paginate(5);
+
+        return view('search', ['products' => $search]);
     }
 }

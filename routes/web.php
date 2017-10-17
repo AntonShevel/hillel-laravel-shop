@@ -19,10 +19,17 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('products', 'ProductsController@index')
-    ->name('products');
-Route::get('products/{url}', 'ProductsController@show')
-    ->name('product');
+Route::get('products', 'ProductsController@index')->name('products');
 
-Route::get('{url}', 'CategoriesController@show')
-    ->name('category');
+Route::get('products/{url}', 'ProductsController@show')->name('product');
+
+Route::get('{url}', 'CategoriesController@show')->name('category');
+
+
+Route::post('search', 'ProductsController@searchResult');
+
+
+// Route::get('search/{url}', 'ProductsController@searchResult')->name('str');
+
+
+
