@@ -24,16 +24,21 @@
                     </div>
                     <div class="panel-body">
                         @foreach ($categories as $category)
-                            <a href="{{ route('category', ['url' => $category->url]) }}">
-                                {{$category->name}}
-                            </a>
+                        <a href="{{ route('category', ['url' => $category->url]) }}">
+                            {{$category->name}}
+                        </a>
                         @endforeach
                         <hr>
-                        @foreach ($products as $product)
-                            <div>
-                                <a href="{{route('product', ['url' => $product->url])}}">{{$product->name}}</a>
-                            </div>
-                        @endforeach
+                        <h2>Products</h2>
+                            <ul>
+                            @foreach ($products as $product)
+                                <li>
+                                    <a href="{{route('product', ['url' => $product->url])}}">{{$product->name}}</a>
+                                    @include('product.add_to_cart', ['product_id' => $product->id])
+                                </li>
+                            @endforeach
+                            </ul>
+                        {{-- пагинация --}}
                         {{$products->links()}}
                     </div>
                 </div>

@@ -8,11 +8,13 @@ use Illuminate\Http\Request;
 
 class ProductsController extends Controller
 {
-    /**
+    /*
      * Показать список товаров
      */
     public function index()
     {
+//        dump(session()->all());
+
         $products = Product::paginate(10);
         $categories = Category::all();
 
@@ -22,7 +24,7 @@ class ProductsController extends Controller
         ]);
     }
 
-    /**
+    /*
      * Показать детали товара
      */
     public function show($url)
@@ -35,7 +37,6 @@ class ProductsController extends Controller
 
     public function searchResult(Request $request)
     {
-       
         $search = Product::where('name', 'LIKE', '%'.  $request->input('search') .'%')->paginate(5);
 
         return view('search', ['products' => $search]);

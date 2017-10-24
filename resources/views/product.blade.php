@@ -16,6 +16,7 @@
                         <p>
                             {{ $product->description }}
                         </p>
+                        @include('product.add_to_cart', ['product_id' => $product->id])
                     </div>
                 </div>
             </div>
