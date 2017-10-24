@@ -10,7 +10,7 @@
                             Результаты поиска
                         </div>
                         <div class="input-group col-md-8">
-                            <form action="/search" method="post">
+                            <form action="/search">
                                 {{ csrf_field() }}
                                 
                                 <input type="text" class="form-control input-lg" placeholder="Поиск" name="search" />

@@ -23,16 +23,12 @@ Route::get('products', 'ProductsController@index')->name('products');
 
 Route::get('products/{url}', 'ProductsController@show')->name('product');
 
-
-Route::post('search', 'ProductsController@searchResult');
+Route::get('search', 'ProductsController@searchResult');
 
 Route::post('cart', 'CartController@addToCart')->name('cart');
 Route::put('cart', 'CartController@updateCart')->name('cart');
 Route::get('cart', 'CartController@showCart')->name('cart');
 
 Route::get('{url}', 'CategoriesController@show')->name('category');
-
-// Route::get('search/{url}', 'ProductsController@searchResult')->name('str');
-
 
 
