@@ -1,9 +1,9 @@
 <?php
 
-namespace App;
+namespace LaravelShop;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Image;
+use LaravelShop\Image;
 
 class Product extends Model
 {

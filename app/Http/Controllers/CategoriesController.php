@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace LaravelShop\Http\Controllers;
 
-use App\Product;
-use App\Category;
+use LaravelShop\Product;
+use LaravelShop\Category;
 
 class CategoriesController extends Controller
 {
@@ -12,12 +12,8 @@ class CategoriesController extends Controller
      */
     public function show($url)
     {
-//        \DB::enableQueryLog();
-        $category = Category::where('url', '=', $url)->first();
+        $category = Category::where('url', $url)->firstOrFail();
         $products = $category->products()->paginate(10);
-
-//        dump($products);
-//        dump(\DB::getQueryLog());
 
         return view('category', [
             'category' => $category,

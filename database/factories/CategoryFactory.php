@@ -1,7 +1,7 @@
 <?php
 
 use Faker\Generator as Faker;
-use App\Category;
+use LaravelShop\Category;
 
 $factory->define(Category::class, function (Faker $faker) {
     return [
