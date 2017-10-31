@@ -6,6 +6,7 @@ use App\Product;
 use App\Category;
 use Illuminate\Http\Request;
 
+
 class ProductsController extends Controller
 {
     /*
@@ -13,11 +14,9 @@ class ProductsController extends Controller
      */
     public function index()
     {
-//        dump(session()->all());
-
+ //dd(session()->all());
         $products = Product::paginate(10);
         $categories = Category::all();
-
         return view('products', [
             'products' => $products,
             'categories' => $categories

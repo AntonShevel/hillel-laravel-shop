@@ -7,12 +7,12 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="col-md-4">
-                            Товары
+                            Instagram absolem_shop
                         </div>
                         <div class="input-group col-md-8">
                             <form action="/search">
-                            {{ csrf_field() }}
-                                
+                                {{ csrf_field() }}
+
                                 <input type="text" class="form-control input-lg" placeholder="Поиск" name="search" />
                                 <span class="input-group-btn">
                                     <button class="btn btn-info btn-lg" type="submit">
@@ -23,24 +23,16 @@
                         </div>
                     </div>
                     <div class="panel-body">
-                        @foreach ($categories as $category)
-                        <a href="{{ route('category', ['url' => $category->url]) }}">
-                            {{$category->name}}
-                        </a>
-                        @endforeach
-                        <hr>
-                        <h2>Products</h2>
-                            <ul>
-                            @foreach ($products as $product)
+                        <h2>Pictures</h2>
+                        <ul>
+                            @foreach ($instagrams as $instagram)
                                 <li>
-                                    <a href="{{route('product', ['url' => $product->url])}}">{{$product->name}}</a>
-                                    @include('product.add_to_cart', ['product_id' => $product->id])
+                                    <img src="{{$instagram->images->low_resolution->url}}"
+                                         width="{{$instagram->images->low_resolution->width}}" height="{{$instagram->images->low_resolution->height}}" alt="">
+                                    {{$instagram->caption->text}}
                                 </li>
                             @endforeach
-                            </ul>
-
-                        {{-- пагинация --}}
-                        {{$products->links()}}
+                        </ul>
                     </div>
                 </div>
             </div>
