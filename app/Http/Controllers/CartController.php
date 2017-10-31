@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace LaravelShop\Http\Controllers;
 
-use App\Product;
+use LaravelShop\Product;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -12,7 +12,7 @@ class CartController extends Controller
         $request->validate(['product_id' => 'required|integer']);
 
         $productId = $request->get('product_id');
-        $product = Product::where('id', $productId)->where('visible', true)->first();
+        $product = Product::where('id', $productId)->where('visible', true)->firstOrFail();
         if ($product) {
             $request->session()->increment("cart.{$productId}");
         }

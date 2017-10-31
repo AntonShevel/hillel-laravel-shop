@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace LaravelShop\Http\Controllers;
 
-use App\Product;
-use App\Category;
+use LaravelShop\Product;
+use LaravelShop\Category;
 use Illuminate\Http\Request;
 
 
@@ -14,7 +14,6 @@ class ProductsController extends Controller
      */
     public function index()
     {
- //dd(session()->all());
         $products = Product::paginate(10);
         $categories = Category::all();
         return view('products', [
@@ -28,11 +27,8 @@ class ProductsController extends Controller
      */
     public function show($url)
     {
-        $product = Product::where('url', '=', $url)->first();
-
+        $product = Product::where('url', '=', $url)->firstOrFail();
         $images = $product->images()->get();
-
-        dump($images);
 
         return view('product', [
             'product' => $product,
@@ -40,15 +36,15 @@ class ProductsController extends Controller
         ]);
     }
 
-
     public function searchResult(Request $request)
     {
-        $search = Product::where('name', 'LIKE', '%'.  $request->input('search') .'%')->paginate(5);
+        $query = $request->input('search');
+        $search = Product::where('name', 'LIKE', "%{$query}%")->paginate(10);
         $categories = Category::all();
 
         return view('products', [
-                'products' => $search,
-                'categories' => $categories
+            'products' => $search,
+            'categories' => $categories
         ]);
     }
 }
