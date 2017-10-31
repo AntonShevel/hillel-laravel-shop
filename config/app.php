@@ -176,7 +176,8 @@ return [
         // LaravelShop\Providers\BroadcastServiceProvider::class,
         LaravelShop\Providers\EventServiceProvider::class,
         LaravelShop\Providers\RouteServiceProvider::class,
-
+        LaravelShop\Providers\ComposerServiceProvider::class,
+        LaravelShop\Providers\CartServiceProvider::class,
     ],
 
     /*
