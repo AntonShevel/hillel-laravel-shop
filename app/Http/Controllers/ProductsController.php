@@ -3,8 +3,8 @@
 namespace LaravelShop\Http\Controllers;
 
 use LaravelShop\Product;
-use LaravelShop\Category;
 use Illuminate\Http\Request;
+use LaravelShop\Services\CartService;
 
 class ProductsController extends Controller
 {
@@ -13,12 +13,10 @@ class ProductsController extends Controller
      */
     public function index()
     {
+        $cartService = \App::make(CartService::class);
         $products = Product::paginate(10);
-        $categories = Category::all();
-
         return view('products', [
-            'products' => $products,
-            'categories' => $categories
+            'products' => $products
         ]);
     }
 
@@ -36,16 +34,13 @@ class ProductsController extends Controller
         ]);
     }
 
-
     public function searchResult(Request $request)
     {
         $query = $request->input('search');
         $search = Product::where('name', 'LIKE', "%{$query}%")->paginate(10);
-        $categories = Category::all();
 
         return view('products', [
-            'products' => $search,
-            'categories' => $categories
+            'products' => $search
         ]);
     }
 }

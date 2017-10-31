@@ -21,6 +21,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('products', 'ProductsController@index')->name('products');
 
+Route::get('instagrams', 'InstagramController@index')->name('instagrams');
+
 Route::get('products/{url}', 'ProductsController@show')->name('product');
 
 Route::get('search', 'ProductsController@searchResult');
