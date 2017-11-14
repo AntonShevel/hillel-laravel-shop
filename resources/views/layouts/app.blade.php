@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href='https://apimgmtstorelinmtekiynqw.blob.core.windows.net/content/MediaLibrary/Widget/Map/styles/map.css' />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -38,7 +40,7 @@
                     <ul class="nav navbar-nav">
                         &nbsp;<li><a href="{{ route('instagrams') }}">Instagram</a></li>
                         &nbsp;<li><a href="{{ route('products') }}">Товары</a></li>
-                        &nbsp;<li><a href="{{ route('cart') }}">Корзина</a></li>
+                        &nbsp;<li><a href="{{ route('cart') }}">Корзина ({{ count($cart) }})</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -77,6 +79,9 @@
     </div>
 
     <!-- Scripts -->
+
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/script.js') }}"></script>
+    @stack('scripts')
 </body>
 </html>

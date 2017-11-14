@@ -4,6 +4,7 @@ namespace LaravelShop\Http\Controllers;
 
 use LaravelShop\Product;
 use Illuminate\Http\Request;
+use LaravelShop\Services\CartService;
 
 class CartController extends Controller
 {
@@ -20,17 +21,11 @@ class CartController extends Controller
         return redirect()->back();
     }
 
-    public function showCart(Request $request)
+    public function showCart(Request $request, CartService $cartService)
     {
-        $cart = $request->session()->get('cart');
-
-        $products = Product::whereIn('id', array_keys($cart))
-            ->where('visible', true)
-            ->get();
-
-        $finalPrice = $products->reduce(function($price, $product) use ($cart){
-            return $price + $product->price * $cart[$product->id];
-        });
+        $cart = $request->session()->get('cart', []);
+        $products = $cartService->getCart();
+        $finalPrice = $cartService->getTotalPrice();
 
         return view('cart', [
             'products' => $products,

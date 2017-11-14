@@ -27,7 +27,15 @@
                     </tr>
                     @endforeach
             </table>
-            <p class="lead">Итого: <b>${{ $finalPrice }}</b></p>
+            <div class="col-md-6">
+                <p class="lead">Итого: <b>${{ $finalPrice }}</b></p>
+            </div>
+            <div class="col-md-6">
+                <form action="{{ route('checkout') }}" method="post">
+                    {{ csrf_field() }}
+                    <button type="submit" class="btn btn-default">Оформить заказ</button>
+                </form>
+            </div>
         </div>
     </div>
 @endsection
