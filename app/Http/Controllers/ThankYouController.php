@@ -2,6 +2,8 @@
 
 namespace LaravelShop\Http\Controllers;
 
+use LaravelShop\Order;
+use LaravelShop\OrderProduct;
 use LaravelShop\Orders;
 use Illuminate\Http\Request;
 use LaravelShop\Services\CartService;
@@ -12,45 +14,49 @@ use Illuminate\Database\Connection;
 class ThankYouController extends Controller
 {
     public function show()
-    {	
+    {
         return view('thankYou');
     }
 
-    public function sendPost(Request $request)
-    {	
-    	$user_name 		= $_POST["name"];
-    	$user_phone 	= $_POST["tel"];
-    	$city    		= $_POST["city"];
-    	$department 	= $_POST["department"];
-    	$product_id 	= $_POST["product_id"];
-    	$product_amount = $_POST["product_amount"];
-    	$final_price 	= $_POST["finalPrice"];
-    	$delivery		= isset($_POST["delivery"]) ? $_POST["delivery"] : '';
-    	$pay			= isset($_POST["pay"]) ? $_POST["pay"] : '';
+    public function sendPost(Request $request, CartService $cartService)
+    {
+        /** @var Order $order */
+        $order = Order::create([
+            'client_name' => $request->get('name'),
+            'client_email' => 'temp@mail.com',
+            'client_phone' => $request->get("tel"),
+            'delivery_address' => $request->get("department"),
+            'total_price' => $cartService->getTotalPrice(),
+            'comment' => $request->get("comment", ''),
+            'delivery_type_id' => 1,
+            'payment_type_id' => 1,
+        ]);
 
-    	//if(!is_int($product_id)) return false;
-    	//if(!is_int($product_amount)) return false;
+        $cart = $request->session()->get('cart', []);
 
-    	$values = [
-    		'user_name' 	 => $user_name,
-    		'user_phone' 	 => $user_phone,
-    		'product_id' 	 => $product_id,
-    		'product_amount' => $product_amount,
-    		'city' 			 => $city,
-    		'department' 	 => $department,
-    		'final_price' 	 => $final_price,
-    		'delivery' 	 	 => $delivery,
-    		'pay' 	 		 => $pay
-		];
-		
-		foreach ($values as $value) {
- 
-            Orders::create(array(
-                'value' => json_encode($value)
-            ));
- 			dd($value);
+        foreach($cartService->getCart() as $product)
+        {
+            $orderProduct = OrderProduct::create([
+                'order_id' => $order->id,
+                'product_id' => $product->id,
+                'price' => $product->price,
+                'amount' => $cart[$product->id],
+                'name' => $product->name
+            ]);
+            $order->orderProducts()->save($orderProduct);
         }
 
-        $orders = Orders::insert($values);
+        dd($order);
+
+        /*
+         * добавить валидацию запроса
+         * использовать relationship вместо указания order_id
+         * выбор способоа оплаты/заказа из БД
+         * отобразить сформированный заказ
+         * создавать заказ в транзакции
+         * исправить выбор отеделения НП в модальном окне
+         */
     }
 }
+
+

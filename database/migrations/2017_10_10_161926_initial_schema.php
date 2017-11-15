@@ -69,6 +69,6 @@ class InitialSchema extends Migration
         Schema::dropIfExists('products');
         Schema::dropIfExists('images');
         Schema::dropIfExists('categories');
-        Schema::dropIfExists('product_categories');
+        Schema::dropIfExists('category_product');
     }
 }

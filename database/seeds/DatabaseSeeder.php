@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\{Product, Category, Image};
+use LaravelShop\{Product, Category, Image, DeliveryType, PaymentType};
 
 class DatabaseSeeder extends Seeder
 {
@@ -32,6 +32,9 @@ class DatabaseSeeder extends Seeder
         }
 
         factory(Product::class, 10)->create();
+
+        factory(DeliveryType::class, 2)->create();
+        factory(PaymentType::class, 2)->create();
 
         echo "Тестовые данные добавлены \n";
     }
