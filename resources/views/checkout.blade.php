@@ -12,6 +12,9 @@
                     <div class="col-md-12 form-group">
                         <input type="tel" name="tel" placeholder="Ваш телефон" required="">
                     </div>
+                    <div class="col-md-12 form-group">
+                        <input type="email" name="email" placeholder="Ваш email" required="">
+                    </div>
                     <p class="title">Выберите способ доставки</p>
                     <div class="col-md-4 form-group radio radio-primary">
                         <input type="radio" name="delivery" id="nova_poshta" value="Новой почтой">
