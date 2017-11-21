@@ -9,11 +9,6 @@ use LaravelShop\Services\CartServiceInterface;
 
 class ThankYouController extends Controller
 {
-    public function show()
-    {
-        return view('thankYou');
-    }
-
     public function sendPost(ThankYouRequest $request, CartServiceInterface $cartService)
     {
         DB::transaction(function() use($request, $cartService) {
@@ -41,16 +36,14 @@ class ThankYouController extends Controller
                 ]);
             }
 
-            dump($order);
-
         });
-
-        dd('done');
 
         /*
          * выбор способоа оплаты/заказа из БД
          * отобразить сформированный заказ
          */
+
+        return view('thankYou');
     }
 }
 
