@@ -4,7 +4,7 @@ namespace LaravelShop\Services;
 
 use LaravelShop\Product;
 
-class CartService
+class CartService implements CartServiceInterface
 {
     private $session;
     private $products;
@@ -13,6 +13,22 @@ class CartService
     public function __construct($session)
     {
         $this->session = $session;
+    }
+
+    public function addProduct(int $productId)
+    {
+        $this->session->increment("cart.{$productId}");
+    }
+
+    public function updateAmount(int $productId, int $amount)
+    {
+        $key = "cart.{$productId}";
+
+        if ($amount === 0) {
+            $this->session->forget($key);
+        }  elseif ($this->session->has($key)) {
+            $this->session->put($key, $amount);
+        }
     }
 
     public function getCart()
@@ -35,6 +51,11 @@ class CartService
             ->reduce(function($price, $product) use ($cart) {
                 return $price + $product->price * $cart[$product->id];
             });
+    }
+
+    public function getAmounts()
+    {
+        return $this->getSessionCart();
     }
 
     private function getProducts()

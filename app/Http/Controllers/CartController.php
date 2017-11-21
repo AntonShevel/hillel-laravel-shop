@@ -4,52 +4,46 @@ namespace LaravelShop\Http\Controllers;
 
 use LaravelShop\Product;
 use Illuminate\Http\Request;
-use LaravelShop\Services\CartService;
+use LaravelShop\Services\CartServiceInterface;
 
 class CartController extends Controller
 {
-    public function addToCart(Request $request)
+    public function addToCart(Request $request, CartServiceInterface $cartService)
     {
         $request->validate(['product_id' => 'required|integer']);
 
-        $productId = $request->get('product_id');
-        $product = Product::where('id', $productId)->where('visible', true)->firstOrFail();
-        if ($product) {
-            $request->session()->increment("cart.{$productId}");
-        }
+        $productId = (int) $request->get('product_id');
+        Product::where('id', $productId)->where('visible', true)->firstOrFail();
+
+        $cartService->addProduct($productId);
 
         return redirect()->back();
     }
 
-    public function showCart(Request $request, CartService $cartService)
+    public function showCart(CartServiceInterface $cartService)
     {
-        $cart = $request->session()->get('cart', []);
         $products = $cartService->getCart();
         $finalPrice = $cartService->getTotalPrice();
 
         return view('cart', [
             'products' => $products,
-            'cart' => $cart,
+            'cart' => $cartService->getAmounts(),
             'finalPrice' => $finalPrice
         ]);
     }
 
-    public function updateCart(Request $request)
+    public function updateCart(Request $request, CartServiceInterface $cartService)
     {
         $request->validate([
             'amount' => 'required|integer|min:0',
             'product_id' => 'required|integer'
         ]);
 
-        $productId = $request->get('product_id');
-        $amount = (int) $request->get('amount');
-        $key = "cart.{$productId}";
 
-        if ($amount === 0) {
-            $request->session()->forget($key);
-        }  elseif ($request->session()->has($key)) {
-            $request->session()->put($key, $amount);
-        }
+        $productId = (int) $request->get('product_id');
+        $amount = (int) $request->get('amount');
+
+        $cartService->updateAmount($productId, $amount);
 
         return redirect()->back();
     }

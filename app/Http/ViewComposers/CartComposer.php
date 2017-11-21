@@ -3,14 +3,13 @@
 namespace LaravelShop\Http\ViewComposers;
 
 use Illuminate\View\View;
-use LaravelShop\Category;
-use LaravelShop\Services\CartService;
+use LaravelShop\Services\CartServiceInterface;
 
 class CartComposer
 {
     private $cartService;
 
-    public function __construct(CartService $cartService)
+    public function __construct(CartServiceInterface $cartService)
     {
         $this->cartService = $cartService;
     }

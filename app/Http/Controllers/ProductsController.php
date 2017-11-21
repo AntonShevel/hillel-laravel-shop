@@ -4,7 +4,6 @@ namespace LaravelShop\Http\Controllers;
 
 use LaravelShop\Product;
 use Illuminate\Http\Request;
-use LaravelShop\Services\CartService;
 
 class ProductsController extends Controller
 {
@@ -13,7 +12,6 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $cartService = \App::make(CartService::class);
         $products = Product::paginate(10);
         return view('products', [
             'products' => $products

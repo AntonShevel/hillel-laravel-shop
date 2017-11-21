@@ -4,6 +4,7 @@ namespace LaravelShop\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use LaravelShop\Services\CartService;
+use LaravelShop\Services\CartServiceInterface;
 
 class CartServiceProvider extends ServiceProvider
 {
@@ -14,7 +15,7 @@ class CartServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(CartService::class, function ($app) {
+        $this->app->singleton(CartServiceInterface::class, function ($app) {
             return new CartService($app->make('session'));
         });
     }

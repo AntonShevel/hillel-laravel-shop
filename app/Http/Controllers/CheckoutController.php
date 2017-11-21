@@ -2,15 +2,13 @@
 
 namespace LaravelShop\Http\Controllers;
 
-use LaravelShop\Product;
-use Illuminate\Http\Request;
-use LaravelShop\Services\CartService;
+use LaravelShop\Services\CartServiceInterface;
 
 class CheckoutController extends Controller
 {
-    public function show(Request $request, CartService $cartService)
+    public function show(CartServiceInterface $cartService)
     {
-        $cart       = $request->session()->get('cart', []);
+        $cart       = $cartService->getAmounts();
         $products   = $cartService->getCart();
         $finalPrice = $cartService->getTotalPrice();
 

@@ -4,15 +4,8 @@ namespace LaravelShop\Http\Controllers;
 
 use LaravelShop\Http\Requests\ThankYouRequest;
 use LaravelShop\Order;
-use LaravelShop\OrderProduct;
-use LaravelShop\Orders;
-use Illuminate\Http\Request;
-use LaravelShop\Services\CartService;
-
-use Illuminate\Database\Connection;
-
-use Illuminate\Database\Seeder;
 use DB;
+use LaravelShop\Services\CartServiceInterface;
 
 class ThankYouController extends Controller
 {
@@ -21,7 +14,7 @@ class ThankYouController extends Controller
         return view('thankYou');
     }
 
-    public function sendPost(ThankYouRequest $request, CartService $cartService)
+    public function sendPost(ThankYouRequest $request, CartServiceInterface $cartService)
     {
         DB::transaction(function() use($request, $cartService) {
         /** @var Order $order */
@@ -36,28 +29,27 @@ class ThankYouController extends Controller
                 'payment_type_id'  => 1,
             ]);
 
-            $cart = $request->session()->get('cart', []);
+            $cart = $cartService->getAmounts();
 
             foreach($cartService->getCart() as $product)
             {
-                $orderProduct = OrderProduct::create([
-                    'order_id'   => $order->id,
+                $order->orderProducts()->create([
                     'product_id' => $product->id,
                     'price' => $product->price,
                     'amount' => $cart[$product->id],
                     'name' => $product->name
                 ]);
-                $order->orderProducts()->save($orderProduct);
             }
 
-            dd($order);
+            dump($order);
+
         });
 
+        dd('done');
+
         /*
-         * использовать relationship вместо указания order_id
          * выбор способоа оплаты/заказа из БД
          * отобразить сформированный заказ
-         * исправить выбор отеделения НП в модальном окне +++
          */
     }
 }
