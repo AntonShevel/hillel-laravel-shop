@@ -31,10 +31,10 @@ class FetchInstagramImages extends Command
      *
      * @return void
      */
-    public function __construct(Instagram $instagram)
+    public function __construct()
     {
         parent::__construct();
-        $this->instagram = $instagram;
+        $this->instagram = new Instagram(config('instagram.token'));;
     }
 
     /**
@@ -44,9 +44,9 @@ class FetchInstagramImages extends Command
      */
     public function handle()
     {
-        $username = config('instagram.username');
-        $images = $this->instagram->get($username);
+        $images = $this->instagram->get();
 
+            dd($images);
         // create Model -> InstagramMedia/InstagramPhoto/etc..
         // create Migration: instagram_id, url, created_at/updated_at
         // insert only images which are not stored in the DB

@@ -9,7 +9,7 @@ class InstagramController extends Controller
 {
     public function index()
     {
-        // TODO get images from the DB
+    // TODO get images from the DB
         return view('instagrams', [
             'instagrams' => []
         ]);

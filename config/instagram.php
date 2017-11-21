@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'username' => env('INSTAGRAM_USERNAME')
+    'token' => env('INSTAGRAM_TOKEN')
 ];
