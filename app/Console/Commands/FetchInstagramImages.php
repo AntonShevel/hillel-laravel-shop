@@ -4,7 +4,7 @@ namespace LaravelShop\Console\Commands;
 
 use Illuminate\Console\Command;
 use Vinkla\Instagram\Instagram;
-
+use DB;
 class FetchInstagramImages extends Command
 {
     /**
@@ -46,7 +46,14 @@ class FetchInstagramImages extends Command
     {
         $images = $this->instagram->get();
 
-            dd($images);
+        foreach ( $images as $post ) {
+            $image = DB::select('select * from instagram_images where instagram_id = ?', [$post->id]);
+            if(!$image){
+                DB::insert('insert into instagram_images (instagram_id, url) values (?, ?)', [$post->id, "img/instagram/".$post->id.".jpg"]);
+                copy($post->images->standard_resolution->url,"public/img/instagram/".$post->id.".jpg");
+            }
+        }
+
         // create Model -> InstagramMedia/InstagramPhoto/etc..
         // create Migration: instagram_id, url, created_at/updated_at
         // insert only images which are not stored in the DB
