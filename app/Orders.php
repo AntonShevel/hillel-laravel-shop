@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Orders extends Model
 {
     protected $fillable = 
-    [
+    [   
+        'order_number,'
         'user_name', 
         'user_phone', 
         'product_id', 

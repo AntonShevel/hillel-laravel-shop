@@ -13,11 +13,20 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                    <h1>Ваши заказы</h1>
 
-                    You are logged in!
+                    @foreach ($order_products as $order_product)
+
+                        {{ $order_product }}
+                        
+                    @endforeach
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+    #home_table td{border: 1px solid #222;}
+</style>
 @endsection

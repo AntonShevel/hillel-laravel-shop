@@ -35,6 +35,4 @@ Route::post('checkout', 'CheckoutController@show')->name('checkout');
 
 Route::post('thankYou', 'ThankYouController@sendPost')->name('thankYou');
 
-Route::get('admin', 'Admin\DashboardController@show')->middleware('is_admin');
-
 Route::get('{url}', 'CategoriesController@show')->name('category');

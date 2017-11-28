@@ -11,9 +11,18 @@ class ThankYouController extends Controller
 {
     public function sendPost(ThankYouRequest $request, CartServiceInterface $cartService)
     {
-        DB::transaction(function() use($request, $cartService) {
+        $order_number = mt_rand(100, 999999);
+        $test = DB::table('orders')->where('order_number', $order_number)->first();
+
+        while($test !== null){
+            $order_number = mt_rand(100, 999999);
+            $test = DB::table('orders')->where('order_number', $order_number)->first();
+        }
+
+        DB::transaction(function() use($request, $cartService, $order_number) {
         /** @var Order $order */
             $order = Order::create([
+                'order_number'     => $order_number,
                 'client_name'      => $request->get('name'),
                 'client_email'     => $request->get('email'),
                 'client_phone'     => $request->get("tel"),
@@ -42,8 +51,16 @@ class ThankYouController extends Controller
          * выбор способоа оплаты/заказа из БД
          * отобразить сформированный заказ
          */
+        $products = $cartService->getCart();
+        $finalPrice = $cartService->getTotalPrice();
 
-        return view('thankYou');
+        return view('thankYou', [
+            'products'       => $products,
+            'cart'           => $cartService->getAmounts(),
+            'finalPrice'     => $finalPrice,
+            'order_number'   => $order_number,
+            'products_count' => count($products)
+        ]);
     }
 }
 

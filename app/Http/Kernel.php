@@ -57,6 +57,5 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \LaravelShop\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'is_admin' => \LaravelShop\Http\Middleware\IsAdmin::class
     ];
 }
