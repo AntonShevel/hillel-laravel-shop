@@ -31,7 +31,7 @@ Route::post('cart', 'CartController@addToCart')->name('cart');
 Route::put('cart', 'CartController@updateCart')->name('cart');
 Route::get('cart', 'CartController@showCart')->name('cart');
 
-Route::post('checkout', 'CheckoutController@show')->name('checkout');
+Route::get('checkout', 'CheckoutController@show')->name('checkout');
 
 Route::post('thankYou', 'ThankYouController@sendPost')->name('thankYou');
 

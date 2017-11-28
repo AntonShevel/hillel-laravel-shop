@@ -31,10 +31,9 @@
                 <p class="lead">Итого: <b>${{ $finalPrice }}</b></p>
             </div>
             <div class="col-md-6">
-                <form action="{{ route('checkout') }}" method="post">
-                    {{ csrf_field() }}
+                <a href="{{ route('checkout') }}">
                     <button type="submit" class="btn btn-default">Оформить заказ</button>
-                </form>
+                </a>
             </div>
         </div>
     </div>

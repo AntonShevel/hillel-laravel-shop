@@ -1,13 +1,23 @@
 @extends('layouts.app')
 
 @section('content')
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <form action="{{ route('thankYou') }}" method="post" class="form-horizontal" id="checkout">
                     {{ csrf_field() }}
                     <div class="col-md-12 form-group">
-                        <input type="text" name="name" placeholder="Ваше имя" required="" autofocus="">
+                        <input type="text" name="name" placeholder="Ваше имя"
+                               required="" autofocus="" value="">
                     </div>
                     <div class="col-md-12 form-group">
                         <input type="tel" name="tel" placeholder="Ваш телефон" required="">
