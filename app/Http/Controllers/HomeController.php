@@ -3,6 +3,9 @@
 namespace LaravelShop\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
+use Auth;
+use LaravelShop\Order;
 
 class HomeController extends Controller
 {
@@ -22,7 +25,12 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return view('home');
+    {   
+        $id     = Auth::user()->id;
+        $orders = Order::where('client_id', $id)->with('orderProducts')->paginate(10);
+
+        return view('home', [
+            'orders'   => $orders 
+        ]);
     }
 }

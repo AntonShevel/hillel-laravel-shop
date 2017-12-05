@@ -17,6 +17,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('products', 'ProductsController@index')->name('products');
@@ -31,10 +32,18 @@ Route::post('cart', 'CartController@addToCart')->name('cart');
 Route::put('cart', 'CartController@updateCart')->name('cart');
 Route::get('cart', 'CartController@showCart')->name('cart');
 
-Route::post('checkout', 'CheckoutController@show')->name('checkout');
+Route::get('checkout', 'CheckoutController@show')->name('checkout');
 
 Route::post('thankYou', 'ThankYouController@sendPost')->name('thankYou');
 
 Route::get('admin', 'Admin\DashboardController@show')->middleware('is_admin');
 
+
+Route::get('sendbasicemail','MailController@basic_email');
+Route::get('sendhtmlemail','MailController@html_email');
+Route::get('sendattachmentemail','MailController@attachment_email');
+
+
 Route::get('{url}', 'CategoriesController@show')->name('category');
+
+

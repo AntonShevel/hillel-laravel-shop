@@ -14,10 +14,35 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    @foreach ($orders as $order)
+                        <table id="home">
+                            <caption>Ваш список заказов</caption>
+                            <thead>
+                                <tr>
+                                    <th>Название продукта</th>
+                                    <th>Количество</th>
+                                    <th>Цена</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($order->orderProducts as $orderProduct )
+                                <tr>
+                                    <td>{{ $orderProduct->name }}</td>
+                                    <td>{{ $orderProduct->price }}</td>
+                                    <td>{{ $orderProduct->amount }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <p>Итого: {{ $order->total_price }}</p>
+                    @endforeach
                 </div>
             </div>
         </div>
     </div>
+    <style>
+        #home{width: 100%;}
+        #home td, #home th{border:1px solid #222;padding: 10px;}
+    </style>
 </div>
 @endsection

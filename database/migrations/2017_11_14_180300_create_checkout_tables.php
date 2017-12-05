@@ -33,6 +33,9 @@ class CreateCheckoutTables extends Migration
             $table->string('client_email');
             $table->string('client_name');
             $table->string('client_phone');
+            $table->integer('client_id')
+                ->references('id')
+                ->on('users');
             $table->integer('delivery_type_id')
                 ->references('id')
                 ->on('delivery_types');

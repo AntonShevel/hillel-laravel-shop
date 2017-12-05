@@ -5,10 +5,12 @@ namespace LaravelShop\Http\Controllers;
 use LaravelShop\Http\Requests\ThankYouRequest;
 use LaravelShop\Order;
 use DB;
+use Auth;
 use LaravelShop\Services\CartServiceInterface;
 
 class ThankYouController extends Controller
-{
+{   
+
     public function sendPost(ThankYouRequest $request, CartServiceInterface $cartService)
     {
         DB::transaction(function() use($request, $cartService) {
@@ -17,6 +19,7 @@ class ThankYouController extends Controller
                 'client_name'      => $request->get('name'),
                 'client_email'     => $request->get('email'),
                 'client_phone'     => $request->get("tel"),
+                'client_id'        => Auth::user()->id,
                 'delivery_address' => $request->get("department"),
                 'total_price'      => $cartService->getTotalPrice(),
                 'comment'          => $request->get("comment", ''),

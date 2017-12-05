@@ -27,24 +27,14 @@ class FetchInstagramImages extends Command
     private $instagram;
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->instagram = new Instagram(config('instagram.token'));;
-    }
-
-    /**
      * Execute the console command.
      *
      * @return mixed
      */
     public function handle()
     {
-        $images = $this->instagram->get();
+        $instagram = new Instagram(config('instagram.token'));
+        $images = $instagram->get();
 
             dd($images);
         // create Model -> InstagramMedia/InstagramPhoto/etc..
