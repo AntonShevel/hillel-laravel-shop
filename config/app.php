@@ -178,6 +178,7 @@ return [
         LaravelShop\Providers\RouteServiceProvider::class,
         LaravelShop\Providers\ComposerServiceProvider::class,
         LaravelShop\Providers\CartServiceProvider::class,
+        LaravelShop\Providers\InstagramServiceProvider::class,
     ],
 
     /*

@@ -31,10 +31,10 @@ class FetchInstagramImages extends Command
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Instagram $instagram)
     {
         parent::__construct();
-        $this->instagram = new Instagram(config('instagram.token'));;
+        $this->instagram = $instagram;
     }
 
     /**
@@ -48,10 +48,9 @@ class FetchInstagramImages extends Command
 
         foreach ( $images as $post ) {
             $image = DB::select('select * from instagram_images where instagram_id = ?', [$post->id]);
-            if(!$image){
+            
+            if(!$image && copy($post->images->standard_resolution->url,"public/img/instagram/".$post->id.".jpg"))
                 DB::insert('insert into instagram_images (instagram_id, url) values (?, ?)', [$post->id, "img/instagram/".$post->id.".jpg"]);
-                copy($post->images->standard_resolution->url,"public/img/instagram/".$post->id.".jpg");
-            }
         }
 
         // create Model -> InstagramMedia/InstagramPhoto/etc..
